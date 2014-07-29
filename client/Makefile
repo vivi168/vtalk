@@ -2,7 +2,7 @@ CC = gcc
 LFLAGS = -g -W -Wall -Werror -Wmissing-declarations -Wmissing-prototypes -Wredundant-decls -Wshadow -Wbad-function-cast -Wcast-qual -o
 CFLAGS = -c -g -W -Wall -Werror -Wmissing-declarations -Wmissing-prototypes -Wredundant-decls -Wshadow -Wbad-function-cast -Wcast-qual
 EXEC = client
-SRC = $(wildcard *.c)
+SRC = client.c
 OBJ = $(SRC:.c=.o)
 
 all : $(EXEC)

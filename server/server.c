@@ -53,8 +53,8 @@ int main(int argc, char **argv)
 	char buf[BUFSIZ];
 	char msgbuf[MSGSIZ];
 	char namebuf[NAMESIZ];
-	struct sockaddr_in6 my_addr;
-	struct sockaddr_in6 client;
+	struct sockaddr_in my_addr;
+	struct sockaddr_in client;
 	struct clientinfo ci[MAXCON]; // client slots
 	fd_set master;
 	fd_set read_fds;
@@ -71,16 +71,16 @@ int main(int argc, char **argv)
 		exit(-1);
 	}
 
-	if((sockfd = socket(PF_INET6, SOCK_STREAM, IPPROTO_TCP)) == -1)
+	if((sockfd = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP)) == -1)
 	{
 		perror("error socket");
 		exit(EXIT_FAILURE);
 	}
 
-	my_addr.sin6_family	= AF_INET6;
-	my_addr.sin6_port = htons(atoi(argv[1]));
-	my_addr.sin6_addr = in6addr_any;
-	addrlen	= sizeof(struct sockaddr_in6);
+	my_addr.sin_family	= AF_INET;
+	my_addr.sin_port = htons(atoi(argv[1]));
+	my_addr.sin_addr.s_addr = INADDR_ANY;
+	addrlen	= sizeof(struct sockaddr_in);
 	memset(buf,'\0',BUFSIZ);
 
 	if(bind(sockfd, (struct sockaddr*)&my_addr, addrlen) == -1)

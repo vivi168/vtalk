@@ -40,7 +40,7 @@ int main(int argc, char **argv)
 	int fdmax;
 	char buf[BUFSIZ];
 	char message[MSGSIZ];
-	struct sockaddr_in6 server;
+	struct sockaddr_in server;
 	fd_set master;	
 	fd_set read_fds;
 	
@@ -52,7 +52,7 @@ int main(int argc, char **argv)
 	}
 
 	// socket factory
-	if((sockfd = socket(PF_INET6, SOCK_STREAM, IPPROTO_TCP)) == -1)
+	if((sockfd = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP)) == -1)
 	{
 		perror("error socket");
 		exit(EXIT_FAILURE);
@@ -60,12 +60,12 @@ int main(int argc, char **argv)
 
 
 	// init remote addr structure and other params
-	server.sin6_family = AF_INET6;
-	server.sin6_port   = htons(atoi(argv[2]));
-	addrlen           = sizeof(struct sockaddr_in6);
+	server.sin_family = AF_INET;
+	server.sin_port   = htons(atoi(argv[2]));
+	addrlen           = sizeof(struct sockaddr_in);
 
 	// get addr from command line and convert it
-	if(inet_pton(AF_INET6, argv[1], &(server.sin6_addr)) != 1)
+	if(inet_pton(AF_INET, argv[1], &(server.sin_addr)) != 1)
 	{
 		perror("error inet_pton");
 		close(sockfd);
